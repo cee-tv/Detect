@@ -152,7 +152,7 @@
     async function fetchTodayKey() {
       todayKeyDate = getTodayKeyDate();
       const fileName = `${todayKeyDate}.txt`;
-      const url = `https://raw.githubusercontent.com/cee-tv/iptvphkey/main/keys/${fileName}`;
+      const url = `https://raw.githubusercontent.com/cee-tv/kiffy/main/keys/${fileName}`;
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Key not found.");
