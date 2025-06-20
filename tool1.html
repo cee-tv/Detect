@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GAG Stock Tool 1</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Grow a Garden - Tool 1: Live Stock Viewer">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/616/616408.png" type="image/png">
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="main-nav" id="mainNav">
+    <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">&#9776;</button>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Live Tracker" class="nav-icon">
+        Live Tracker
+      </a>
+      <a href="tool1.html" class="nav-link active">
+        <img src="https://cdn-icons-png.flaticon.com/128/1159/1159633.png" alt="Tool 1" class="nav-icon">
+        Tool 1
+      </a>
+      <a href="tool2.html" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/128/1828/1828919.png" alt="Tool 2" class="nav-icon">
+        Tool 2
+      </a>
+      <a href="tool3.html" class="nav-link">
+        <img src="https://cdn-icons-png.flaticon.com/128/709/709496.png" alt="Tool 3" class="nav-icon">
+        Tool 3
+      </a>
+      <a href="javascript:void(0);" class="nav-link" id="aboutDevBtn">
+        <img src="https://cdn-icons-png.flaticon.com/128/1077/1077012.png" alt="About Dev" class="nav-icon">
+        About Dev
+      </a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>GAG Stock Tool 1</h1>
+    <div class="subtitle">Simple, clean stock list from growagardenstock.com</div>
+    <button id="refresh-btn" type="button" aria-label="Refresh Tool 1">🔄 Refresh</button>
+    <div class="update-time" id="updateTime">Loading...</div>
+    <div id="apiStatus" style="font-weight:bold;margin:10px 0 16px 0;">API: Checking...</div>
+    <div class="sections" id="sections"></div>
+    <div class="footer">&copy; 2025 GAG Stock Tool 1 &middot; Demo</div>
+    <div class="coded-by">
+      Coded by: Renkaku
+      <a href="https://www.facebook.com/renkakuwar" target="_blank" rel="noopener noreferrer">
+        fb: renkakuwar
+      </a>
+    </div>
+  </div>
+  <!-- About Dev Overlay -->
+  <div id="aboutDevOverlay" style="display:none;z-index:1000;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(30,20,40,0.90);align-items:center;justify-content:center;">
+    <div style="background:#2e1847;padding:30px 25px 18px 25px;border-radius:13px;position:relative;box-shadow:0 2px 14px #000c;">
+      <button id="aboutDevCloseBtn" style="
+        position:absolute;top:10px;right:20px;
+        background:none;border:none;color:#fff;font-size:2em;cursor:pointer;line-height:1;" aria-label="Close about dev overlay">&times;</button>
+      <div style="font-weight:bold;margin-bottom:12px;font-size:1.2em;">
+        👨‍💻 About the Developer
+      </div>
+      <div style="font-size:1.08em;line-height:1.7;">
+        Made by <b>Renkaku</b><br>
+        <span>BSIT Student, loves playing Grow a Garden.</span><br>
+        <span>
+          Link my FB:
+          <a href="https://www.facebook.com/renkakuwar" target="_blank" rel="noopener noreferrer" style="color:var(--accent2);font-weight:bold;text-decoration:underline;">
+            message me
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <script src="tool1.js"></script>
+</body>
+</html>
