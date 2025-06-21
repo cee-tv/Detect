@@ -211,7 +211,8 @@ async function fetchAndRender() {
   const scrollY = window.scrollY;
   const updateTime = document.getElementById("updateTime");
   try {
-    const resp = await fetch("https://corsproxy.io/?https://gagstock.gleeze.com/grow-a-garden");
+    const apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://gagstock.gleeze.com/grow-a-garden');
+    const resp = await fetch(apiUrl);
     if (!resp.ok) throw new Error("Failed to fetch API");
     const data = (await resp.json()).data;
     const restocks = getNextRestocks();
@@ -307,8 +308,9 @@ async function checkApiStatus() {
   const onlineColor = getComputedStyle(document.documentElement).getPropertyValue('--online').trim() || '#4be87a';
   const offlineColor = getComputedStyle(document.documentElement).getPropertyValue('--offline').trim() || '#ff5252';
   try {
+    const apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://gagstock.gleeze.com/grow-a-garden');
     // Use GET to avoid HEAD being blocked
-    const resp = await fetch("https://corsproxy.io/?https://gagstock.gleeze.com/grow-a-garden", { method: "GET", cache: "no-cache" });
+    const resp = await fetch(apiUrl, { method: "GET", cache: "no-cache" });
     if (resp.ok) {
       apiStatusElem.textContent = "API: Online";
       apiStatusElem.style.color = onlineColor;
