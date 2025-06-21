@@ -248,42 +248,24 @@ async function fetchAndRender() {
     for (const section of sections) {
       const div = document.createElement("div");
       div.className = "section";
-      if (window.innerWidth <= 550) {
-        div.innerHTML = `
-          <div class="section-title"><span class="emoji">${section.emoji}</span>${section.label.replace(section.emoji, '')}</div>
-          <span class="restock">${section.restock ? "⏳ Restock in: " + section.restock : ''}</span>
-          <table>
-            <tbody>
-              ${section.rows.map(row => `
-                <tr>
-                  <td data-label="Item">${emojis[row.name] ? `<span class="emoji">${emojis[row.name]}</span>` : ''}${row.name}</td>
-                  <td data-label="Qty Available">${formatValue(Number(row.quantity))}</td>
-                  <td data-label="Price">${getItemPrice(row)}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        `;
-      } else {
-        div.innerHTML = `
-          <div class="section-title"><span class="emoji">${section.emoji}</span>${section.label.replace(section.emoji, '')}</div>
-          <span class="restock">${section.restock ? "⏳ Restock in: " + section.restock : ''}</span>
-          <table>
-            <thead>
-              <tr><th>Item</th><th>Qty Available</th><th>Price</th></tr>
-            </thead>
-            <tbody>
-              ${section.rows.map(row => `
-                <tr>
-                  <td>${emojis[row.name] ? `<span class="emoji">${emojis[row.name]}</span>` : ''}${row.name}</td>
-                  <td>${formatValue(Number(row.quantity))}</td>
-                  <td>${getItemPrice(row)}</td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        `;
-      }
+      div.innerHTML = `
+        <div class="section-title"><span class="emoji">${section.emoji}</span>${section.label.replace(section.emoji, '')}</div>
+        <span class="restock">${section.restock ? "⏳ Restock in: " + section.restock : ''}</span>
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Qty Available</th><th>Price</th></tr>
+          </thead>
+          <tbody>
+            ${section.rows.map(row => `
+              <tr>
+                <td>${emojis[row.name] ? `<span class="emoji">${emojis[row.name]}</span>` : ''}${row.name}</td>
+                <td>${formatValue(Number(row.quantity))}</td>
+                <td>${getItemPrice(row)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
       sectionsDiv.appendChild(div);
     }
     updateTime.textContent = "Last updated: " + new Date(new Date().toLocaleString("en-US", {
@@ -318,7 +300,6 @@ document.getElementById("aboutDevOverlay").addEventListener("click", function (e
 });
 fetchAndRender();
 setInterval(fetchAndRender, 5000);
-window.addEventListener("resize", fetchAndRender);
 
 // API Online/Offline Status (theme aware, uses GET not HEAD)
 async function checkApiStatus() {
