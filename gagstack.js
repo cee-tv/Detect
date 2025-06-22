@@ -16,23 +16,28 @@ function navCloseHandler(event) {
   }
 }
 
-// Theme selector and localStorage
-const themeSelect = document.getElementById("themeSelect");
+// Theme Toggler
+const themeToggleBtn = document.getElementById("themeToggleBtn");
 function setTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("gag_theme", theme);
 }
-themeSelect.addEventListener("change", function () {
-  setTheme(this.value);
-});
+if(themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+  });
+}
+
 (function () {
   const savedTheme = localStorage.getItem("gag_theme");
-  if (savedTheme) {
+  // Only allow 'light' or 'dark' themes now
+  if (savedTheme === 'light' || savedTheme === 'dark') {
     setTheme(savedTheme);
-    themeSelect.value = savedTheme;
   } else {
+    // Default to dark theme for new users or users of old themes
     setTheme("dark");
-    themeSelect.value = "dark";
   }
 })();
 
@@ -205,14 +210,20 @@ function sectionLabel(section) {
   }
 }
 
+function updateAboutDevContent() {
+  const aboutDevContent = document.querySelector('.about-dev-content');
+  if (aboutDevContent) {
+    aboutDevContent.innerHTML = `This is a demo project.`;
+  }
+}
+
 // Fetch and render
 async function fetchAndRender() {
   const sectionsDiv = document.getElementById("sections");
   const scrollY = window.scrollY;
   const updateTime = document.getElementById("updateTime");
   try {
-    const apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://gagstock.gleeze.com/grow-a-garden');
-    const resp = await fetch(apiUrl);
+    const resp = await fetch("https://corsproxy.io/?https://gagstock.gleeze.com/grow-a-garden");
     if (!resp.ok) throw new Error("Failed to fetch API");
     const data = (await resp.json()).data;
     const restocks = getNextRestocks();
@@ -300,7 +311,9 @@ document.getElementById("aboutDevOverlay").addEventListener("click", function (e
   if (e.target === this) this.style.display = "none";
 });
 fetchAndRender();
+updateAboutDevContent();
 setInterval(fetchAndRender, 5000);
+window.addEventListener("resize", fetchAndRender);
 
 // API Online/Offline Status (theme aware, uses GET not HEAD)
 async function checkApiStatus() {
@@ -308,9 +321,8 @@ async function checkApiStatus() {
   const onlineColor = getComputedStyle(document.documentElement).getPropertyValue('--online').trim() || '#4be87a';
   const offlineColor = getComputedStyle(document.documentElement).getPropertyValue('--offline').trim() || '#ff5252';
   try {
-    const apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://gagstock.gleeze.com/grow-a-garden');
     // Use GET to avoid HEAD being blocked
-    const resp = await fetch(apiUrl, { method: "GET", cache: "no-cache" });
+    const resp = await fetch("https://corsproxy.io/?https://gagstock.gleeze.com/grow-a-garden", { method: "GET", cache: "no-cache" });
     if (resp.ok) {
       apiStatusElem.textContent = "API: Online";
       apiStatusElem.style.color = onlineColor;
